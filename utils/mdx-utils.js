@@ -1,22 +1,28 @@
-import { api } from '../services/api';
+import { supabase } from '../services/api';
 
 export const getPosts = async () => {
-  const {data} = await api.get('/posts'); 
   
-  if(data){
-      console.log(data)
-      return data;
-  }
+  const { data: posts, error } = await supabase
+  .from('posts')
+  .select('*')
 
-  return []
+  if (posts) {
+    return posts;
+  } else {
+    return [error];
+  }
 }
 
 export const getPostBySlug = async (id) => {
   try {
-    const { data } = await api.get(`/post/${id}`);
+    const { data: post, error } = await supabase
+      .from('posts')
+      .select('*')
+      .eq('id', id)
+      .single();
 
-    if (data) {
-      return data;
+    if (post) {
+      return post;
     }
 
     return {};

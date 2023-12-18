@@ -9,6 +9,7 @@ import { getGlobalData } from '../utils/global-data';
 import SEO from '../components/SEO';
 
 export default function Index({ posts, globalData }) {
+  
   return (
     <Layout>
       <SEO title={globalData.name} description={globalData.blogTitle} />
